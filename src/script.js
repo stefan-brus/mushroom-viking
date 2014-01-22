@@ -1,8 +1,18 @@
 var mushrooms = 0;
 
+window.onload = initGame;
+
+function initGame () {
+    updateMushrooms();
+}
+
+function updateMushrooms() {
+    document.getElementById('mushrooms').innerHTML = mushrooms;
+}
+
 function pick () {
     mushrooms++;
-    document.getElementById('mushrooms').innerHTML = mushrooms;
+    updateMushrooms();
 }
 
 function addClicker() {
