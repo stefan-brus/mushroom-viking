@@ -14,10 +14,13 @@ ul {
     list-style-type: none;
 }
 
-#picker {
-    margin-left: 40px;
+.button {
     border-style: solid;
     border-width: 1px;
     display: inline;
     padding: 5px;
+}
+
+#picker {
+    margin-left: 40px;
 }
