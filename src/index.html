@@ -2,6 +2,8 @@
 <head>
 <title>Mushroom Viking</title>
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
 <script type="text/javascript" src="script.js"></script>
 
 <link rel="stylesheet" href="style.css" type="text/css">
@@ -10,11 +12,11 @@
 <body>
 <h1>Mushroom Viking</h1>
 <p>Mushrooms: <span id="mushrooms"></span></p>
-<div class="button" id="picker" onClick="pick(true)">Pick</div>
-<div class="button" onClick="reset()">Reset</div>
+<div class="button" id="picker">Pick</div>
+<div class="button" id="reset">Reset</div>
 <h2>Auto-pickers</h2>
 <ul>
-<li class="button" onClick="addClicker()">Phantom hand | <span id="clickerPrice"></span></li>
+<li class="button">Phantom hand | <span id="clickerPrice"></span></li>
 </ul>
 </body>
 </html>

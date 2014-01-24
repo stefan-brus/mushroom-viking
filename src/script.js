@@ -10,19 +10,33 @@ var auto_click_factor = 0;
 
 var clicker_event_ids = new Array();
 
-window.onload = initGame;
+$(document).ready(function() {
+    initGame();
+});
 
 function initGame () {
+    $('#picker').click(function() {
+        pick(true);
+    });
+    
+    $('#reset').click(function() {
+        reset();
+    });
+    
+    $('li').click(function() {
+        addClicker();
+    });
+
     updateMushrooms();
     updateClickerPrices();
 }
 
 function updateMushrooms() {
-    document.getElementById('mushrooms').innerHTML = parseInt(mushrooms);
+    $('#mushrooms').text(parseInt(mushrooms));
 }
 
 function updateClickerPrices() {
-    document.getElementById('clickerPrice').innerHTML = CLICKER_PRICE;
+    $('#clickerPrice').text(CLICKER_PRICE);
 }
 
 function pick (isClick) {
