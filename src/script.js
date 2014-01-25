@@ -2,6 +2,8 @@ var AUTO_CLICKS_PER_SECOND = 10;
 
 var CLICKER_PRICE = 10;
 
+var SAVE_COOKIE = 'saveGame';
+
 var mushrooms = 0;
 
 var no_clickers = 0;
@@ -24,9 +26,17 @@ function initGame () {
         reset();
     });
     
+    $('#save').click(function() {
+        save();
+    });
+
     $('li').click(function() {
         addClicker();
     });
+
+    $.cookie.json = true;
+
+    load();
 
     updateMushrooms();
     updateClickerPrices();
@@ -79,4 +89,34 @@ function reset() {
     auto_click_factor = 0;
     resetClickerEvent();
     updateMushrooms();
+}
+
+function save() {
+    var jsonState = jsonifyState();
+    $.cookie(SAVE_COOKIE, jsonState,{ expires: 3650 });
+}
+
+function load() {
+    if ($.cookie(SAVE_COOKIE)) {
+        var jsonState = $.cookie(SAVE_COOKIE);
+        mushrooms = jsonState['mushrooms'];
+        no_clickers = jsonState['no_clickers'];
+        auto_click_factor = jsonState['auto_click_factor'];
+        clicker_event_id = jsonState['clicker_event_id'];
+
+        if (no_clickers > 0) {
+            resetClickerEvent();
+            clicker_event_id = window.setInterval(function() { pick(false) }, 1000 / no_clickers);
+        }
+    }
+}
+
+function jsonifyState() {
+    var result = {
+        'mushrooms': mushrooms,
+        'no_clickers': no_clickers,
+        'auto_click_factor': auto_click_factor,
+        'clicker_event_id': clicker_event_id
+       };
+    return result;
 }
