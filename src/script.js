@@ -71,7 +71,7 @@ function addClicker() {
         if (no_clickers < AUTO_CLICKS_PER_SECOND) {
             no_clickers++;
             resetClickerEvent();
-            clicker_event_id = window.setInterval(function() { pick(false); }, 1000 / no_clickers);
+            startAutoClicker();
         }
         else {
             auto_click_factor = auto_click_factor + (1 / AUTO_CLICKS_PER_SECOND);
@@ -80,6 +80,10 @@ function addClicker() {
         mushrooms = mushrooms - CLICKER_PRICE;
         updateMushrooms();
     }
+}
+
+function startAutoClicker() {
+    clicker_event_id = window.setInterval(function() { pick(false); }, 1000 / no_clickers);
 }
 
 function resetClickerEvent() {
@@ -112,7 +116,7 @@ function load() {
 
         if (no_clickers > 0) {
             resetClickerEvent();
-            clicker_event_id = window.setInterval(function() { pick(false) }, 1000 / no_clickers);
+            startAutoClicker();
         }
     }
 }
