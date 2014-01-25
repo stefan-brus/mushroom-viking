@@ -40,6 +40,8 @@ function initGame () {
 
     updateMushrooms();
     updateClickerPrices();
+    
+    startAutoSaver();
 }
 
 function updateMushrooms() {
@@ -48,6 +50,10 @@ function updateMushrooms() {
 
 function updateClickerPrices() {
     $('#clickerPrice').text(CLICKER_PRICE);
+}
+
+function startAutoSaver() {
+    window.setInterval(function() { save(); }, 60000);
 }
 
 function pick (isClick) {
