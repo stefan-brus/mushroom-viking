@@ -39,6 +39,8 @@ function initGame () {
         addClicker();
     });
 
+    $('.box').equalHeights();
+
     $.cookie.json = true;
 
     load();
