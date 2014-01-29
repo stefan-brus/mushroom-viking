@@ -27,6 +27,11 @@ ul {
     user-select: none;
 }
 
+.box {
+    float: left;
+    padding: 10px;
+}
+
 #picker {
     margin-left: 40px;
 }
