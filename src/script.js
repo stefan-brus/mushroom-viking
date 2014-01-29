@@ -1,10 +1,15 @@
 var AUTO_CLICKS_PER_SECOND = 10;
 
-var CLICKER_PRICE = 10;
+// This magic number has been decided by thorough research and ruthless testing
+var PRICE_INCREASE_RATE = 1.218;
+
+var ORIG_CLICKER_PRICE = 10;
 
 var SAVE_COOKIE = 'saveGame';
 
 var mushrooms = 0;
+
+var clicker_price = ORIG_CLICKER_PRICE;
 
 var no_clickers = 0;
 
@@ -49,7 +54,7 @@ function updateMushrooms() {
 }
 
 function updateClickerPrices() {
-    $('#clickerPrice').text(CLICKER_PRICE);
+    $('#clickerPrice').text(Math.round(clicker_price));
 }
 
 function startAutoSaver() {
@@ -67,7 +72,7 @@ function pick (isClick) {
 }
 
 function addClicker() {
-    if ( mushrooms >= CLICKER_PRICE ) {
+    if ( mushrooms >= clicker_price ) {
         if (no_clickers < AUTO_CLICKS_PER_SECOND) {
             no_clickers++;
             resetClickerEvent();
@@ -77,9 +82,15 @@ function addClicker() {
             auto_click_factor = auto_click_factor + (1 / AUTO_CLICKS_PER_SECOND);
         }
 
-        mushrooms = mushrooms - CLICKER_PRICE;
+        mushrooms = mushrooms - clicker_price;
+        increasePrice();
         updateMushrooms();
+        updateClickerPrices();
     }
+}
+
+function increasePrice() {
+    clicker_price = clicker_price * PRICE_INCREASE_RATE;
 }
 
 function startAutoClicker() {
@@ -96,9 +107,11 @@ function resetClickerEvent() {
 function reset() {
     mushrooms = 0;
     no_clickers = 0;
+    clicker_price = ORIG_CLICKER_PRICE;
     auto_click_factor = 0;
     resetClickerEvent();
     updateMushrooms();
+    updateClickerPrices();
 }
 
 function save() {
@@ -111,6 +124,7 @@ function load() {
         var jsonState = $.cookie(SAVE_COOKIE);
         mushrooms = jsonState['mushrooms'];
         no_clickers = jsonState['no_clickers'];
+        clicker_price = jsonState['clicker_price'];
         auto_click_factor = jsonState['auto_click_factor'];
         clicker_event_id = jsonState['clicker_event_id'];
 
@@ -125,6 +139,7 @@ function jsonifyState() {
     var result = {
         'mushrooms': mushrooms,
         'no_clickers': no_clickers,
+        'clicker_price': clicker_price,
         'auto_click_factor': auto_click_factor,
         'clicker_event_id': clicker_event_id
        };
