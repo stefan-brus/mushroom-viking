@@ -59,7 +59,7 @@ function updateMushrooms() {
 }
 
 function updateClickerPrices() {
-    $('#clickerPrice').text(Math.round(clicker_price));
+    $('#phantom-hand-price').text(Math.round(clicker_price));
 }
 
 function updateStatistics() {
