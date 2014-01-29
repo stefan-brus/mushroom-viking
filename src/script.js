@@ -9,6 +9,8 @@ var SAVE_COOKIE = 'saveGame';
 
 var mushrooms = 0;
 
+var mps = 0;
+
 var clicker_price = ORIG_CLICKER_PRICE;
 
 var no_clickers = 0;
@@ -47,6 +49,7 @@ function initGame () {
 
     updateMushrooms();
     updateClickerPrices();
+    updateStatistics();
     
     startAutoSaver();
 }
@@ -57,6 +60,25 @@ function updateMushrooms() {
 
 function updateClickerPrices() {
     $('#clickerPrice').text(Math.round(clicker_price));
+}
+
+function updateStatistics() {
+    calculateMps();
+    updateMps();
+    updateClickerStatistics();
+}
+
+function updateMps() {
+    $('#mps').text(mps.toFixed(2));
+}
+
+function updateClickerStatistics() {
+    $('#phantom-hand-count').text(parseInt(mps));
+    $('#phantom-hand-mps').text(mps.toFixed(2));
+}
+
+function calculateMps() {
+    mps = no_clickers * 1 + (auto_click_factor * 10);
 }
 
 function startAutoSaver() {
@@ -88,6 +110,7 @@ function addClicker() {
         increasePrice();
         updateMushrooms();
         updateClickerPrices();
+        updateStatistics();
     }
 }
 

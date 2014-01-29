@@ -39,3 +39,7 @@ ul {
 #game-box {
     border-right: 2px solid #000000;
 }
+
+#statistics-box {
+    border-left: 1px solid #000000;
+}
