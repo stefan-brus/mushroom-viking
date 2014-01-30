@@ -33,7 +33,8 @@ ul {
 }
 
 #picker {
-    margin-left: 40px;
+    margin-left: auto;
+    margin-right: auto;
     width: 125px;
     height: 175px;
     cursor: pointer;
