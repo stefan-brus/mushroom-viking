@@ -82,7 +82,7 @@ var Game = function() {
     }
 
     this.updateMushrooms = function() {
-        $('#mushrooms').text(Math.floor(this.mushrooms));
+        $('#mushrooms').text($.number(this.mushrooms));
     }
 
     this.updateClickerPrices = function() {
@@ -91,7 +91,7 @@ var Game = function() {
             price_id += id;
             price_id += '-price';
             
-            $(price_id).text(Math.round(this.clickers[id].cur_price));
+            $(price_id).text($.number(this.clickers[id].cur_price));
         }
     }
 
@@ -102,7 +102,7 @@ var Game = function() {
     }
 
     this.updateMps = function() {
-        $('#mps').text(this.mps.toFixed(2));
+        $('#mps').text($.number(this.mps, 2));
     }
 
     this.updateClickerStatistics = function() {
@@ -115,8 +115,8 @@ var Game = function() {
             mps_id += id;
             mps_id += '-mps';
 
-            $(count_id).text(parseInt(this.clickers[id].count));
-            $(mps_id).text((this.clickers[id].total_mps()).toFixed(2));
+            $(count_id).text($.number(this.clickers[id].count));
+            $(mps_id).text($.number(this.clickers[id].total_mps(), 2));
         }
     }
 
