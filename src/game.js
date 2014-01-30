@@ -177,6 +177,7 @@ var Game = function() {
         this.calculateMps();
         this.updateMushrooms();
         this.updateClickerPrices();
+        this.updateStatistics();
     }
 
     this.save = function() {
