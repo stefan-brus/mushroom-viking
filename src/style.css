@@ -45,6 +45,7 @@ ul {
 }
 
 #game-box {
+    width: 300px;
     border-right: 2px solid #000000;
 }
 
