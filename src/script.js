@@ -1,17 +1,16 @@
-var AUTO_CLICKS_PER_SECOND = 10;
-
 // This magic number has been decided by thorough research and ruthless testing
 var PRICE_INCREASE_RATE = 1.218;
 
 var SAVE_COOKIE = 'saveGame';
+
+// How often the main game logic function is run, in msec
+var INTERVAL = 50;
 
 var mushrooms = 0;
 
 var clickers = new Array();
 
 var mps = 0;
-
-var auto_click_factor = 0;
 
 // Initialize to an impossible(?) event id
 var clicker_event_id = -1;
@@ -39,8 +38,6 @@ function initGame () {
 
     initClickers();
 
-    var has_clicker = false;
-
     load();
 
     for(var id in clickers) {
@@ -50,10 +47,6 @@ function initGame () {
         $(button_id).click(function() {
             addClicker(id);
         });
-        
-        if(clickers[id].count > 0) {
-            has_clicker = true;
-        }
     }
 
     updateMushrooms();
@@ -61,10 +54,7 @@ function initGame () {
     updateStatistics();
 
     startAutoSaver();
-
-    if (has_clicker) {
-        startAutoClicker();
-    }
+    startGameLogic();
 }
 
 function initClickers() {
@@ -82,7 +72,7 @@ function initClickers() {
 }
 
 function updateMushrooms() {
-    $('#mushrooms').text(parseInt(mushrooms));
+    $('#mushrooms').text(Math.floor(mushrooms));
 }
 
 function updateClickerPrices() {
@@ -115,8 +105,8 @@ function updateClickerStatistics() {
         mps_id += id;
         mps_id += '-mps';
 
-        $(count_id).text(parseInt(clickers[id].count + auto_click_factor * 10));
-        $(mps_id).text((clickers[id].total_mps() + auto_click_factor * 10).toFixed(2));
+        $(count_id).text(parseInt(clickers[id].count));
+        $(mps_id).text((clickers[id].total_mps()).toFixed(2));
     }
 }
 
@@ -125,7 +115,7 @@ function calculateMps() {
     for(var id in clickers) {
         new_mps += clickers[id].count * clickers[id].added_mps;
     }
-    mps = new_mps + auto_click_factor * 10;
+    mps = new_mps;
 }
 
 function startAutoSaver() {
@@ -133,10 +123,11 @@ function startAutoSaver() {
 }
 
 function pick (isClick) {
-    mushrooms++;
-
     if (!isClick) {
-        mushrooms = mushrooms + auto_click_factor;
+        mushrooms += mps * (INTERVAL / 1000) ;
+    }
+    else {
+        mushrooms++
     }
 
     updateMushrooms();
@@ -146,15 +137,7 @@ function addClicker(id) {
     var price = clickers[id].cur_price;
 
     if ( mushrooms >= price ) {
-        if (clickers[id].count < AUTO_CLICKS_PER_SECOND) {
-            clickers[id].count++;
-            resetClickerEvent();
-            startAutoClicker();
-        }
-        else {
-            auto_click_factor = auto_click_factor + (1 / AUTO_CLICKS_PER_SECOND);
-        }
-
+        clickers[id].count++;
         mushrooms = mushrooms - price;
         clickers[id].cur_price *= PRICE_INCREASE_RATE;
         updateMushrooms();
@@ -163,11 +146,11 @@ function addClicker(id) {
     }
 }
 
-function startAutoClicker() {
-    clicker_event_id = window.setInterval(function() { pick(false); }, 1000 / clickers['phantom-hand'].count);
+function startGameLogic() {
+    clicker_event_id = window.setInterval(function() { pick(false); }, INTERVAL);
 }
 
-function resetClickerEvent() {
+function resetGameLogic() {
     if (clicker_event_id != -1) {
         window.clearInterval(clicker_event_id);
         clicker_event_id = -1;
@@ -176,9 +159,8 @@ function resetClickerEvent() {
 
 function reset() {
     mushrooms = 0;
-    auto_click_factor = 0;
     initClickers();
-    resetClickerEvent();
+    calculateMps();
     updateMushrooms();
     updateClickerPrices();
 }
@@ -192,7 +174,6 @@ function load() {
     if ($.cookie(SAVE_COOKIE)) {
         var jsonState = $.cookie(SAVE_COOKIE);
         mushrooms = jsonState['mushrooms'];
-        auto_click_factor = jsonState['auto_click_factor'];
 
         if (typeof jsonState['clickers'] != 'undefined') {
             var new_clickers = jsonState['clickers'];
@@ -208,7 +189,6 @@ function load() {
 function jsonifyState() {
     var result = {
         'mushrooms': mushrooms,
-        'auto_click_factor': auto_click_factor,
         'clickers': clickers,
        };
     return result;
