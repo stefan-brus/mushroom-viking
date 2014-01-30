@@ -19,7 +19,7 @@ ul {
     border-width: 1px;
     border-radius: 5px;
     display: inline;
-    padding: 5px;
+    padding: 10px 5px;
     cursor: pointer;
     -moz-user-select: none;
     -webkit-user-select: none;
