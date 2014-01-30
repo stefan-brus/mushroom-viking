@@ -44,6 +44,12 @@ ul {
     user-select: none;
 }
 
+#mushrooms {
+    text-align: center;
+    font-weight: bold;
+    color: #aa0000;
+}
+
 #game-box {
     width: 300px;
     border-right: 2px solid #000000;
