@@ -42,4 +42,13 @@ ul {
 
 #statistics-box {
     border-left: 1px solid #000000;
+    border-right: 2px solid #000000;
+}
+
+#menu-box {
+    border-left: 1px solid #000000;
+}
+
+#menu  {
+    display: none;
 }
