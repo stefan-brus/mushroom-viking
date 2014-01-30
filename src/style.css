@@ -34,6 +34,13 @@ ul {
 
 #picker {
     margin-left: 40px;
+    width: 125px;
+    height: 175px;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #game-box {
