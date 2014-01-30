@@ -1,0 +1,3 @@
+[submodule "mushroom-viking"]
+	path = mushroom-viking
+	url = https://github.com/stefan-brus/mushroom-viking.git
