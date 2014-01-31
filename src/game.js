@@ -86,10 +86,17 @@ var Game = function() {
         phantom_hand.added_mps = 1;
         phantom_hand.count = 0;
 
+        var living_basket = new Clicker();
+        living_basket.orig_price = 50;
+        living_basket.cur_price = 50;
+        living_basket.added_mps = 3;
+        living_basket.count = 0;
+
         // We stray a bit from our variable_name_convention here
         // This is so that the keys in this array can be used for DOM ids
         this.clickers = {
-            'phantom-hand': phantom_hand
+            'phantom-hand': phantom_hand,
+            'living-basket': living_basket
         };
     }
 
@@ -101,6 +108,10 @@ var Game = function() {
 
         game.display_features['.phantom-hand'] = function() {
             return game.mushrooms >= game.clickers['phantom-hand'].orig_price;
+        }
+
+        game.display_features['.living-basket'] = function() {
+            return game.mushrooms >= game.clickers['living-basket'].orig_price;
         }
 
         game.display_features['#delete-save'] = function() {
