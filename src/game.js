@@ -19,6 +19,11 @@ var Game = function() {
 
     this.clickers = new Array();
 
+    // This is an associative array used to enable gradual display of game features
+    // The key is the DOM-query for the object that should initially be hidden
+    // The value is a function that returns true if the feature should be displayed, false otherwise
+    this.display_features = {};
+
     this.mps = 0;
 
     // Initialize to an impossible(?) event id
@@ -52,6 +57,8 @@ var Game = function() {
 
         this.initClickers();
 
+        this.initDisplayFeatures(this);
+
         this.load();
 
         for(var id in this.clickers) {
@@ -69,6 +76,7 @@ var Game = function() {
 
         this.startAutoSaver();
         this.startGameLogic();
+        this.hideFeatures();
     }
 
     this.initClickers = function() {
@@ -83,6 +91,21 @@ var Game = function() {
         this.clickers = {
             'phantom-hand': phantom_hand
         };
+    }
+
+    // This instance needs to be passed to this method, because it is passed to a function object
+    this.initDisplayFeatures = function(game) {
+        game.display_features['.hide-auto-pickers'] = function() {
+            return game.mushrooms >= game.clickers['phantom-hand'].orig_price;
+        }
+
+        game.display_features['.phantom-hand'] = function() {
+            return game.mushrooms >= game.clickers['phantom-hand'].orig_price;
+        }
+
+        game.display_features['#delete-save'] = function() {
+            return $.cookie(SAVE_COOKIE) != null;
+        }
     }
 
     this.updateMushrooms = function() {
@@ -124,6 +147,18 @@ var Game = function() {
         }
     }
 
+    this.hideFeatures = function() {
+        for(var dom_id in this.display_features) {
+            if(this.display_features[dom_id]()) {
+                $(dom_id).show();
+                delete this.display_features[dom_id];
+            }
+            else {
+                $(dom_id).hide();
+            }
+        }
+    }
+
     this.calculateMps = function() {
         var new_mps = 0;
         for(var id in this.clickers) {
@@ -147,6 +182,7 @@ var Game = function() {
         }
 
         game.updateMushrooms();
+        game.hideFeatures();
     }
 
     this.addClicker = function(id) {
