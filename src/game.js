@@ -22,7 +22,7 @@ var Game = function() {
     this.mps = 0;
 
     // Initialize to an impossible(?) event id
-    this.clicker_event_id = -1;
+    this.game_event_id = -1;
     
     /////////////
     // METHODS //
@@ -165,13 +165,13 @@ var Game = function() {
     this.startGameLogic = function() {
         var fn = this.pick;
         var game = this;
-        this.clicker_event_id = window.setInterval(function() { fn(false, game); }, INTERVAL);
+        this.game_event_id = window.setInterval(function() { fn(false, game); }, INTERVAL);
     }
 
     this.resetGameLogic = function() {
-        if (this.clicker_event_id != -1) {
-            window.clearInterval(this.clicker_event_id);
-            this.clicker_event_id = -1;
+        if (this.game_event_id != -1) {
+            window.clearInterval(this.game_event_id);
+            this.game_event_id = -1;
         }
     }
 
