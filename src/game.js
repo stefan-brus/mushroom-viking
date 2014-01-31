@@ -42,6 +42,10 @@ var Game = function() {
             game.save();
         });
 
+        $('#delete-save').click(function() {
+            game.deleteSave();
+        });
+
         $('.box').equalHeights();
 
         $.cookie.json = true;
@@ -183,6 +187,10 @@ var Game = function() {
     this.save = function() {
         var jsonState = this.jsonifyState();
         $.cookie(SAVE_COOKIE, jsonState,{ expires: 3650 });
+    }
+
+    this.deleteSave = function() {
+        $.removeCookie(SAVE_COOKIE);
     }
 
     this.load = function() {
