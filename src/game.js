@@ -95,11 +95,18 @@ var Game = function() {
         living_basket.added_mps = 3;
         living_basket.count = 0;
 
+        var truffle_boar = new Clicker();
+        truffle_boar.orig_price = 200;
+        truffle_boar.cur_price = 200;
+        truffle_boar.added_mps = 8;
+        truffle_boar.count = 0;
+
         // We stray a bit from our variable_name_convention here
         // This is so that the keys in this array can be used for DOM ids
         this.clickers = {
             'phantom-hand': phantom_hand,
-            'living-basket': living_basket
+            'living-basket': living_basket,
+            'truffle-boar': truffle_boar
         };
     }
 
@@ -115,6 +122,10 @@ var Game = function() {
 
         game.display_features['.living-basket'] = function() {
             return game.mushrooms >= game.clickers['living-basket'].orig_price;
+        }
+
+        game.display_features['.truffle-boar'] = function() {
+            return game.mushrooms >= game.clickers['truffle-boar'].orig_price;
         }
 
         game.display_features['#delete-save'] = function() {
