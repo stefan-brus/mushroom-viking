@@ -15,10 +15,12 @@ ul {
 }
 
 .button {
+    width: 200px;
     border-style: solid;
     border-width: 1px;
     border-radius: 5px;
-    display: inline;
+    display: inline-block;
+    margin: 5px 0px;
     padding: 10px 5px;
     cursor: pointer;
     -moz-user-select: none;
@@ -42,6 +44,10 @@ ul {
     float: left;
     padding: 10px;
     overflow: hidden;
+}
+
+.pricetag {
+    float: right;
 }
 
 #picker {
