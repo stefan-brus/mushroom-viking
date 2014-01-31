@@ -117,15 +117,15 @@ var Game = function() {
         }
 
         game.display_features['.phantom-hand'] = function() {
-            return game.mushrooms >= game.clickers['phantom-hand'].orig_price;
+            return game.clickers['phantom-hand'].count > 0 || game.mushrooms >= game.clickers['phantom-hand'].orig_price;
         }
 
         game.display_features['.living-basket'] = function() {
-            return game.mushrooms >= game.clickers['living-basket'].orig_price;
+            return game.clickers['living-basket'].count > 0 || game.mushrooms >= game.clickers['living-basket'].orig_price;
         }
 
         game.display_features['.truffle-boar'] = function() {
-            return game.mushrooms >= game.clickers['truffle-boar'].orig_price;
+            return game.clickers['truffle-boar'].count > 0 || game.mushrooms >= game.clickers['truffle-boar'].orig_price;
         }
 
         game.display_features['#delete-save'] = function() {
