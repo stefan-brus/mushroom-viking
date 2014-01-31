@@ -27,6 +27,16 @@ ul {
     user-select: none;
 }
 
+.menuitem {
+    margin: 5px 0px;
+    padding: 5px 0px;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .box {
     height: 500px;
     float: left;
@@ -68,4 +78,7 @@ ul {
 
 #menu  {
     display: none;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
 }
