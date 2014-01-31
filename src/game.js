@@ -61,14 +61,17 @@ var Game = function() {
 
         this.load();
 
+        var clicker_ids = new Array();
+
         for(var id in this.clickers) {
-            var button_id = '#';
-            button_id += id;
-            
-            $(button_id).click(function() {
-                game.addClicker(id);
-            });
+            clicker_ids.push(id);
         }
+
+        $('.button').each(function(index) {
+            $(this).click(function() {
+                game.addClicker(clicker_ids[index]);
+            });
+        });
 
         this.updateMushrooms();
         this.updateClickerPrices();
@@ -128,7 +131,7 @@ var Game = function() {
             var price_id = '#';
             price_id += id;
             price_id += '-price';
-            
+
             $(price_id).text($.number(this.clickers[id].cur_price));
         }
     }
