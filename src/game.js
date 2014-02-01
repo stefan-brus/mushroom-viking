@@ -107,13 +107,20 @@ var Game = function() {
         hirdman.added_mps = 15;
         hirdman.count = 0;
 
+        var berserker = new Clicker();
+        berserker.orig_price = 2666;
+        berserker.cur_price = 2666;
+        berserker.added_mps = 66;
+        berserker.count = 0;
+
         // We stray a bit from our variable_name_convention here
         // This is so that the keys in this array can be used for DOM ids
         this.clickers = {
             'phantom-hand': phantom_hand,
             'living-basket': living_basket,
             'truffle-boar': truffle_boar,
-            'hirdman': hirdman
+            'hirdman': hirdman,
+            'berserker': berserker
         };
     }
 
@@ -137,6 +144,10 @@ var Game = function() {
 
         game.display_features['.hirdman'] = function() {
             return game.clickers['hirdman'].count > 0 || game.mushrooms >= game.clickers['hirdman'].orig_price;
+        }
+
+        game.display_features['.berserker'] = function() {
+            return game.clickers['berserker'].count > 0 || game.mushrooms >= game.clickers['berserker'].orig_price;
         }
 
         game.display_features['#delete-save'] = function() {
