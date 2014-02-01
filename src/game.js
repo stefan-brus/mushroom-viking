@@ -247,13 +247,17 @@ var Game = function() {
         }
     }
 
-    this.reset = function() {
-        this.mushrooms = 0;
-        this.initClickers();
-        this.calculateMps();
-        this.updateMushrooms();
-        this.updateClickerPrices();
-        this.updateStatistics();
+    // if force is true, no confirmation will be displayed
+    this.reset = function(force) {
+        var proceed = force || window.confirm('Are you sure you want to reset the game?');
+        if(proceed) {
+            this.mushrooms = 0;
+            this.initClickers();
+            this.calculateMps();
+            this.updateMushrooms();
+            this.updateClickerPrices();
+            this.updateStatistics();
+        }
     }
 
     this.save = function() {
@@ -265,7 +269,7 @@ var Game = function() {
         var proceed = window.confirm('Are you sure you want to delete your save and restart?');
         if(proceed) {
             $.removeCookie(SAVE_COOKIE);
-            this.reset();
+            this.reset(true);
         }
     }
 
