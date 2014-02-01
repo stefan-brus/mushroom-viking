@@ -1,4 +1,9 @@
+html {
+    height: 100%;
+}
+
 body {
+    height: 100%;
     font-family: sans-serif;
 }
 
@@ -40,7 +45,7 @@ ul {
 }
 
 .box {
-    height: 500px;
+    height: 100%;
     float: left;
     padding: 10px;
     overflow: hidden;
