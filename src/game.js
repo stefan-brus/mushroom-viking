@@ -262,7 +262,11 @@ var Game = function() {
     }
 
     this.deleteSave = function() {
-        $.removeCookie(SAVE_COOKIE);
+        var proceed = window.confirm('Are you sure you want to delete your save and restart?');
+        if(proceed) {
+            $.removeCookie(SAVE_COOKIE);
+            this.reset();
+        }
     }
 
     this.load = function() {
