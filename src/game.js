@@ -30,7 +30,9 @@ var Game = function() {
     // The value is a function that returns true if the feature should be displayed, false otherwise
     this.display_features = {};
 
-    this.mps = 0;
+    this.mps = 0.00;
+
+    this.mps_factor = 0.00;
 
     // Initialize to an impossible(?) event id
     this.game_event_id = -1;
@@ -161,6 +163,21 @@ var Game = function() {
             this.cur_price *= 2;
         }
 
+        var strength = new Upgrade();
+        strength.orig_price = 84;
+        strength.cur_price = 84;
+        strength.level = 0;
+        strength.available = function() {
+            return true;
+        }
+        strength.apply = function(game) {
+            game.mps_factor += 0.01;
+            game.mushrooms_per_pick *= 1 + 0.01;
+        }
+        strength.increasePrice = function() {
+            this.cur_price *= 2;
+        }
+
         var phantom_hand = new Upgrade();
         phantom_hand.orig_price = 100;
         phantom_hand.cur_price = 100;
@@ -233,6 +250,7 @@ var Game = function() {
 
         this.upgrades = {
             'dexterity': dexterity,
+            'strength': strength,
 
             'phantom-hand': phantom_hand,
             'living-basket': living_basket,
@@ -373,7 +391,7 @@ var Game = function() {
         for(var id in this.clickers) {
             new_mps += this.clickers[id].count * this.clickers[id].added_mps;
         }
-        this.mps = new_mps;
+        this.mps = new_mps * (1 + this.mps_factor);
     }
 
     this.startAutoSaver = function() {
@@ -471,6 +489,7 @@ var Game = function() {
             var jsonState = $.cookie(SAVE_COOKIE);
             this.mushrooms = jsonState['mushrooms'];
             this.mushrooms_picked = jsonState['mushrooms_picked'];
+            this.mps_factor = jsonState['mps_factor'];
 
             if (typeof jsonState['clickers'] != 'undefined') {
                 var new_clickers = jsonState['clickers'];
@@ -499,6 +518,7 @@ var Game = function() {
         var result = {
             'mushrooms': this.mushrooms,
             'mushrooms_picked': this.mushrooms_picked,
+            'mps_factor': this.mps_factor,
             'clickers': this.clickers,
             'upgrades': this.upgrades
            };
