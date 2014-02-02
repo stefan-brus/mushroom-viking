@@ -19,6 +19,8 @@ var Game = function() {
 
     this.mushrooms_picked = 0;
 
+    this.mushrooms_per_pick = 1;
+
     this.clickers = new Array();
 
     this.upgrades = new Array();
@@ -145,6 +147,20 @@ var Game = function() {
 
     // This instance needs to be passed to this method, because it is passed to a function object
     this.initUpgrades = function(game) {
+        var dexterity = new Upgrade();
+        dexterity.orig_price = 60;
+        dexterity.cur_price = 60;
+        dexterity.level = 0;
+        dexterity.available = function() {
+            return true;
+        }
+        dexterity.apply = function(game) {
+            game.mushrooms_per_pick *= 2;
+        }
+        dexterity.increasePrice = function() {
+            this.cur_price *= 2;
+        }
+
         var phantom_hand = new Upgrade();
         phantom_hand.orig_price = 100;
         phantom_hand.cur_price = 100;
@@ -216,6 +232,8 @@ var Game = function() {
         }
 
         this.upgrades = {
+            'dexterity': dexterity,
+
             'phantom-hand': phantom_hand,
             'living-basket': living_basket,
             'truffle-boar': truffle_boar,
@@ -231,7 +249,7 @@ var Game = function() {
         }
 
         game.display_features['.hide-upgrades'] = function() {
-            return game.mushrooms >= game.upgrades['phantom-hand'].orig_price;
+            return game.mushrooms >= game.upgrades['dexterity'].orig_price;
         }
 
         game.display_features['#mps-stats'] = function() {
@@ -371,8 +389,8 @@ var Game = function() {
             game.mushrooms_picked += incr;
         }
         else {
-            game.mushrooms++
-            game.mushrooms_picked++;
+            game.mushrooms += game.mushrooms_per_pick;
+            game.mushrooms_picked += game.mushrooms_per_pick;
         }
 
         game.updateMushrooms();
