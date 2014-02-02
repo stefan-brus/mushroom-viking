@@ -94,6 +94,11 @@ ul {
     text-align: center;
     font-weight: bold;
     color: #aa0000;
+    cursor: default;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #game-box {
