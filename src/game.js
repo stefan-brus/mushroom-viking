@@ -21,6 +21,8 @@ var Game = function() {
 
     this.clickers = new Array();
 
+    this.upgrades = new Array();
+
     // This is an associative array used to enable gradual display of game features
     // The key is the DOM-query for the object that should initially be hidden
     // The value is a function that returns true if the feature should be displayed, false otherwise
@@ -59,6 +61,8 @@ var Game = function() {
 
         this.initClickers();
 
+        this.initUpgrades();
+
         this.initDisplayFeatures(this);
 
         this.load();
@@ -75,8 +79,21 @@ var Game = function() {
             });
         });
 
+        var upgrade_ids = new Array();
+
+        for(var id in this.upgrades) {
+            upgrade_ids.push(id);
+        }
+
+        $('.upgrade').each(function(index) {
+            $(this).click(function() {
+                game.upgrade(upgrade_ids[index]);
+            });
+        });
+
         this.updateMushrooms();
         this.updateClickerPrices();
+        this.updateUpgradePrices();
         this.updateStatistics();
 
         this.startAutoSaver();
@@ -127,9 +144,34 @@ var Game = function() {
     }
 
     // This instance needs to be passed to this method, because it is passed to a function object
+    this.initUpgrades = function(game) {
+        var phantom_hand = new Upgrade();
+        phantom_hand.orig_price = 100;
+        phantom_hand.cur_price = 100;
+        phantom_hand.level = 0;
+        phantom_hand.available = function() {
+            return game.clickers['phantom-hand'].count > 0;
+        }
+        phantom_hand.apply = function(game) {
+            game.clickers['phantom-hand'].added_mps++;
+        }
+        phantom_hand.increasePrice = function() {
+            this.cur_price *= 100;
+        }
+
+        this.upgrades = {
+            'phantom-hand': phantom_hand
+        };
+    }
+
+    // This instance needs to be passed to this method, because it is passed to a function object
     this.initDisplayFeatures = function(game) {
         game.display_features['.hide-auto-pickers'] = function() {
             return game.mushrooms >= game.clickers['phantom-hand'].orig_price;
+        }
+
+        game.display_features['.hide-upgrades'] = function() {
+            return game.mushrooms >= game.upgrades['phantom-hand'].orig_price;
         }
 
         game.display_features['#mps-stats'] = function() {
@@ -178,6 +220,16 @@ var Game = function() {
             price_id += '-price';
 
             $(price_id).text($.number(this.clickers[id].cur_price));
+        }
+    }
+
+    this.updateUpgradePrices = function(){
+        for(var id in this.upgrades) {
+            var price_id = '#';
+            price_id += id;
+            price_id += '-upgrade-price';
+
+            $(price_id).text($.number(this.upgrades[id].cur_price));
         }
     }
 
@@ -260,6 +312,21 @@ var Game = function() {
         }
     }
 
+    this.upgrade = function(id) {
+        var price = this.upgrades[id].cur_price;
+
+        if(this.mushrooms >= price) {
+            var up = this.upgrades[id];
+            up.apply(this);
+            up.level++;
+            up.increasePrice();
+            this.mushrooms = this.mushrooms - price;
+            this.updateMushrooms();
+            this.updateUpgradePrices();
+            this.updateStatistics();
+        }
+    }
+
     this.startGameLogic = function() {
         var fn = this.pick;
         var game = this;
@@ -283,6 +350,7 @@ var Game = function() {
             this.calculateMps();
             this.updateMushrooms();
             this.updateClickerPrices();
+            this.updateUpgradePrices();
             this.updateStatistics();
         }
     }
@@ -314,6 +382,16 @@ var Game = function() {
                     this.clickers[id].cur_price = new_clickers[id].cur_price;
                 }
             }
+
+            if (typeof jsonState['upgrades'] != 'undefined') {
+                var new_upgrades = jsonState['upgrades'];
+
+                for (var id in new_upgrades) {
+                    this.upgrades[id].level = new_upgrades[id].level;
+                    this.upgrades[id].cur_price = new_upgrades[id].cur_price;
+                    this.upgrades[id].apply(this);
+                }
+            }
         }
     }
 
@@ -321,7 +399,8 @@ var Game = function() {
         var result = {
             'mushrooms': this.mushrooms,
             'mushrooms_picked': this.mushrooms_picked,
-            'clickers': this.clickers
+            'clickers': this.clickers,
+            'upgrades': this.upgrades
            };
         return result;
     }

@@ -11,15 +11,26 @@ h1 {
     font-style: oblique;
 }
 
-h2 {
-    text-decoration: underline;
-}
-
 ul {
     list-style-type: none;
 }
 
 .button {
+    width: 200px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 5px 0px;
+    padding: 10px 5px;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.upgrade {
     width: 200px;
     border-style: solid;
     border-width: 1px;
@@ -53,6 +64,18 @@ ul {
 
 .pricetag {
     float: right;
+}
+
+.tab-bar li{
+    display: inline-block;
+    margin-right: 20px;
+    border-bottom: 1px solid;
+    font-size: 20px;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #picker {
