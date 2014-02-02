@@ -132,6 +132,15 @@ var Game = function() {
             return game.mushrooms >= game.clickers['phantom-hand'].orig_price;
         }
 
+        game.display_features['#mps-stats'] = function() {
+            for(var id in game.clickers) {
+                if(game.clickers[id].count > 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         game.display_features['.phantom-hand'] = function() {
             return game.clickers['phantom-hand'].count > 0 || game.mushrooms >= game.clickers['phantom-hand'].orig_price;
         }
