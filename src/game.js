@@ -156,7 +156,7 @@ var Game = function() {
             game.clickers['phantom-hand'].added_mps++;
         }
         phantom_hand.increasePrice = function() {
-            this.cur_price *= 100;
+            this.cur_price *= 2;
         }
 
         var living_basket = new Upgrade();
@@ -170,7 +170,7 @@ var Game = function() {
             game.clickers['living-basket'].added_mps += 2;
         }
         living_basket.increasePrice = function() {
-            this.cur_price *= 5;
+            this.cur_price *= 2;
         }
 
         var truffle_boar = new Upgrade();
@@ -184,7 +184,7 @@ var Game = function() {
             game.clickers['truffle-boar'].added_mps += 5;
         }
         truffle_boar.increasePrice = function() {
-            this.cur_price *= 4;
+            this.cur_price *= 2;
         }
 
         var hirdman = new Upgrade();
@@ -198,7 +198,7 @@ var Game = function() {
             game.clickers['hirdman'].added_mps += 12;
         }
         hirdman.increasePrice = function() {
-            this.cur_price *= 6;
+            this.cur_price *= 2;
         }
 
         var berserker = new Upgrade;
@@ -212,7 +212,7 @@ var Game = function() {
             game.clickers['berserker'].added_mps += 40;
         }
         berserker.increasePrice = function() {
-            this.cur_price *= 6;
+            this.cur_price *= 2;
         }
 
         this.upgrades = {
