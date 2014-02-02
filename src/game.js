@@ -17,6 +17,8 @@ var Game = function() {
 
     this.mushrooms = 0;
 
+    this.mushrooms_picked = 0;
+
     this.clickers = new Array();
 
     // This is an associative array used to enable gradual display of game features
@@ -157,6 +159,7 @@ var Game = function() {
 
     this.updateMushrooms = function() {
         $('#mushrooms').text($.number(this.mushrooms));
+        $('#mushrooms-picked').text($.number(this.mushrooms_picked));
     }
 
     this.updateClickerPrices = function() {
@@ -222,10 +225,13 @@ var Game = function() {
     // This instance needs to be passed to this method, because it is passed to a setInterval call
     this.pick = function(isClick, game) {
         if (!isClick) {
-            game.mushrooms += game.mps * (INTERVAL / 1000) ;
+            var incr = game.mps * (INTERVAL / 1000);
+            game.mushrooms += incr;
+            game.mushrooms_picked += incr;
         }
         else {
             game.mushrooms++
+            game.mushrooms_picked++;
         }
 
         game.updateMushrooms();
@@ -263,6 +269,7 @@ var Game = function() {
         var proceed = force || window.confirm('Are you sure you want to reset the game?');
         if(proceed) {
             this.mushrooms = 0;
+            this.mushrooms_picked = 0;
             this.initClickers();
             this.calculateMps();
             this.updateMushrooms();
@@ -288,6 +295,7 @@ var Game = function() {
         if ($.cookie(SAVE_COOKIE)) {
             var jsonState = $.cookie(SAVE_COOKIE);
             this.mushrooms = jsonState['mushrooms'];
+            this.mushrooms_picked = jsonState['mushrooms'];
 
             if (typeof jsonState['clickers'] != 'undefined') {
                 var new_clickers = jsonState['clickers'];
@@ -303,7 +311,8 @@ var Game = function() {
     this.jsonifyState = function() {
         var result = {
             'mushrooms': this.mushrooms,
-            'clickers': this.clickers,
+            'mushrooms_picked': this.mushrooms_picked,
+            'clickers': this.clickers
            };
         return result;
     }
