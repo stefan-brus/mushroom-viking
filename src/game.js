@@ -452,7 +452,7 @@ var Game = function() {
         if ($.cookie(SAVE_COOKIE)) {
             var jsonState = $.cookie(SAVE_COOKIE);
             this.mushrooms = jsonState['mushrooms'];
-            this.mushrooms_picked = jsonState['mushrooms'];
+            this.mushrooms_picked = jsonState['mushrooms_picked'];
 
             if (typeof jsonState['clickers'] != 'undefined') {
                 var new_clickers = jsonState['clickers'];
@@ -467,9 +467,11 @@ var Game = function() {
                 var new_upgrades = jsonState['upgrades'];
 
                 for (var id in new_upgrades) {
-                    this.upgrades[id].level = new_upgrades[id].level;
-                    this.upgrades[id].cur_price = new_upgrades[id].cur_price;
-                    this.upgrades[id].apply(this);
+                    if(this.upgrades[id].level != new_upgrades[id].level) {
+                        this.upgrades[id].level = new_upgrades[id].level;
+                        this.upgrades[id].cur_price = new_upgrades[id].cur_price;
+                        this.upgrades[id].apply(this);
+                    }
                 }
             }
         }
