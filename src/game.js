@@ -507,7 +507,10 @@ var Game = function() {
                     if(this.upgrades[id].level != new_upgrades[id].level) {
                         this.upgrades[id].level = new_upgrades[id].level;
                         this.upgrades[id].cur_price = new_upgrades[id].cur_price;
-                        this.upgrades[id].apply(this);
+                        for(var i = 0; i < this.upgrades[id].level; i++)
+                        {
+                            this.upgrades[id].apply(this);
+                        }
                     }
                 }
             }
