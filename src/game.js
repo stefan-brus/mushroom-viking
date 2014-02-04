@@ -28,7 +28,7 @@ var Game = function() {
     // This is an associative array used to enable gradual display of game features
     // The key is the DOM-query for the object that should initially be hidden
     // The value is a function that returns true if the feature should be displayed, false otherwise
-    this.display_features = {};
+    this.display_features = new Array();
 
     this.mps = 0.00;
 
