@@ -25,6 +25,8 @@ var Game = function() {
 
     this.upgrades = new Array();
 
+    this.achievements = new Array();
+
     // This is an associative array used to enable gradual display of game features
     // The key is the DOM-query for the object that should initially be hidden
     // The value is a function that returns true if the feature should be displayed, false otherwise
@@ -67,6 +69,8 @@ var Game = function() {
 
         this.initUpgrades();
 
+        this.initAchievements(this);
+
         this.initDisplayFeatures(this);
 
         this.load();
@@ -99,6 +103,7 @@ var Game = function() {
         this.updateClickerPrices();
         this.updateUpgradePrices();
         this.updateStatistics();
+        this.updateAchievements();
 
         this.startAutoSaver();
         this.startGameLogic();
@@ -261,6 +266,13 @@ var Game = function() {
     }
 
     // This instance needs to be passed to this method, because it is passed to a function object
+    this.initAchievements = function(game) {
+        game.achievements['#ach-mushroom-picker'] = function() {
+            return game.mushrooms >= 1;
+        }
+    }
+
+    // This instance needs to be passed to this method, because it is passed to a function object
     this.initDisplayFeatures = function(game) {
         game.display_features['.hide-auto-pickers'] = function() {
             return game.mushrooms >= game.clickers['phantom-hand'].orig_price;
@@ -374,6 +386,19 @@ var Game = function() {
         }
     }
 
+    this.updateAchievements = function() {
+        for(var id in this.achievements) {
+            if (this.achievements[id]()) {
+                $(id).css('display', 'block');
+                delete this.achievements[id];
+                this.save();
+            }
+            else {
+                $(id).css('display', 'none');
+            }
+        }
+    };
+
     this.hideFeatures = function() {
         for(var dom_id in this.display_features) {
             if(this.display_features[dom_id]()) {
@@ -412,6 +437,7 @@ var Game = function() {
         }
 
         game.updateMushrooms();
+        game.updateAchievements();
         game.hideFeatures();
     }
 
@@ -514,6 +540,17 @@ var Game = function() {
                     }
                 }
             }
+
+            if(typeof jsonState['achievements'] != 'undefined') {
+                var new_achievements = jsonState['achievements'];
+
+                for(var id in this.achievements) {
+                    if(typeof new_achievements[id] == 'undefined') {
+                        $(id).css('display', 'block');
+                        delete this.achievements[id];
+                    }
+                }
+            }
         }
     }
 
@@ -523,7 +560,8 @@ var Game = function() {
             'mushrooms_picked': this.mushrooms_picked,
             'mps_factor': this.mps_factor,
             'clickers': this.clickers,
-            'upgrades': this.upgrades
+            'upgrades': this.upgrades,
+            'achievements': this.achievements
            };
         return result;
     }
