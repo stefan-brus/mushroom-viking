@@ -27,6 +27,9 @@ var Game = function() {
 
     this.achievements = new Array();
 
+    // this variable controls the display of the achievement notification
+    this.ach_seen = true;
+
     // This is an associative array used to enable gradual display of game features
     // The key is the DOM-query for the object that should initially be hidden
     // The value is a function that returns true if the feature should be displayed, false otherwise
@@ -59,6 +62,10 @@ var Game = function() {
 
         $('#delete-save').click(function() {
             game.deleteSave();
+        });
+
+        $('#nav-stats-achievements').click(function() {
+            game.ach_seen = true;
         });
 
         $('.box').equalHeights();
@@ -387,10 +394,18 @@ var Game = function() {
     }
 
     this.updateAchievements = function() {
+        if (!this.ach_seen) {
+            $('#ach-notification').css('display', 'inline');
+        }
+        else {
+            $('#ach-notification').css('display', 'none');
+        }
+
         for(var id in this.achievements) {
             if (this.achievements[id]()) {
                 $(id).css('display', 'block');
                 delete this.achievements[id];
+                this.ach_seen = false;
                 this.save();
             }
             else {
