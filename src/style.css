@@ -121,3 +121,11 @@ ul {
     border-style: solid;
     border-radius: 5px;
 }
+
+#display-menu {
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
