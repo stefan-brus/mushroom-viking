@@ -389,7 +389,7 @@ var Game = function() {
             mps_id += '-mps';
 
             $(count_id).text($.number(this.clickers[id].count));
-            $(mps_id).text($.number(this.clickers[id].total_mps(), 2));
+            $(mps_id).text($.number(this.clickers[id].total_mps() * (1 + (this.mps_factor)), 2));
         }
     }
 
@@ -530,7 +530,6 @@ var Game = function() {
             var jsonState = $.cookie(SAVE_COOKIE);
             this.mushrooms = jsonState['mushrooms'];
             this.mushrooms_picked = jsonState['mushrooms_picked'];
-            this.mps_factor = jsonState['mps_factor'];
 
             if (typeof jsonState['clickers'] != 'undefined') {
                 var new_clickers = jsonState['clickers'];
@@ -573,7 +572,6 @@ var Game = function() {
         var result = {
             'mushrooms': this.mushrooms,
             'mushrooms_picked': this.mushrooms_picked,
-            'mps_factor': this.mps_factor,
             'clickers': this.clickers,
             'upgrades': this.upgrades,
             'achievements': this.achievements
