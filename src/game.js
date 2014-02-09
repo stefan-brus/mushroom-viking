@@ -595,7 +595,7 @@ var Game = function() {
                 var new_achievements = jsonState['achievements'];
 
                 for(var id in this.achievements) {
-                    if(typeof new_achievements[id] == 'undefined') {
+                    if(!new_achievements[id]) {
                         $(id).css('display', 'block');
                         delete this.achievements[id];
                     }
@@ -605,12 +605,18 @@ var Game = function() {
     }
 
     this.jsonifyState = function() {
+        // Not yet unlocked achievements need to be stored like this since functions can't be stored in json
+        var ach_save = {};
+        for(var ach in this.achievements) {
+            ach_save[ach] = true;
+        }
+
         var result = {
             'mushrooms': this.mushrooms,
             'mushrooms_picked': this.mushrooms_picked,
             'clickers': this.clickers,
             'upgrades': this.upgrades,
-            'achievements': this.achievements
+            'achievements': ach_save
            };
         return result;
     }
