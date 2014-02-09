@@ -585,6 +585,7 @@ var Game = function() {
             var jsonState = $.cookie(SAVE_COOKIE);
             this.mushrooms = jsonState['mushrooms'];
             this.mushrooms_picked = jsonState['mushrooms_picked'];
+            this.hand_picked = jsonState['hand_picked'];
 
             if (typeof jsonState['clickers'] != 'undefined') {
                 var new_clickers = jsonState['clickers'];
@@ -633,6 +634,7 @@ var Game = function() {
         var result = {
             'mushrooms': this.mushrooms,
             'mushrooms_picked': this.mushrooms_picked,
+            'hand_picked': this.hand_picked,
             'clickers': this.clickers,
             'upgrades': this.upgrades,
             'achievements': ach_save
