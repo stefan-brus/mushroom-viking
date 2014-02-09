@@ -5,6 +5,10 @@ html {
 body {
     height: 100%;
     font-family: sans-serif;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 h1 {
@@ -24,10 +28,6 @@ ul {
     margin: 5px 0px;
     padding: 10px 5px;
     cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .upgrade {
@@ -39,20 +39,12 @@ ul {
     margin: 5px 0px;
     padding: 10px 5px;
     cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .menuitem {
     margin: 5px 0px;
     padding: 5px 0px;
     cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .box {
@@ -72,10 +64,6 @@ ul {
     border-bottom: 1px solid;
     font-size: 20px;
     cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .upgrade-level {
@@ -85,10 +73,6 @@ ul {
 .achievement {
     color: #bababa;
     cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 .achievement:hover .tooltip {
@@ -113,10 +97,6 @@ ul {
     width: 125px;
     height: 175px;
     cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 #mushrooms {
@@ -124,10 +104,6 @@ ul {
     font-weight: bold;
     color: #aa0000;
     cursor: default;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 #game-box {
@@ -153,10 +129,6 @@ ul {
 
 #display-menu {
     cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 #ach-notification {
