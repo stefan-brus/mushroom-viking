@@ -336,6 +336,10 @@ var Game = function() {
             return false;
         }
 
+        game.display_features['#mps-factor'] = function() {
+            return game.mps_factor > 0;
+        }
+
         game.display_features['.phantom-hand'] = function() {
             return game.clickers['phantom-hand'].count > 0 || game.mushrooms >= game.clickers['phantom-hand'].orig_price;
         }
@@ -415,6 +419,11 @@ var Game = function() {
 
     this.updateMps = function() {
         $('#mps').text($.number(this.mps, 2));
+
+        var mps_factor_text = '(+';
+        mps_factor_text += $.number(this.mps_factor * 100);
+        mps_factor_text += '%)';
+        $('#mps-factor').text(mps_factor_text);
     }
 
     this.updateClickerStatistics = function() {
