@@ -476,13 +476,11 @@ var Game = function() {
 
         for(var id in this.achievements) {
             if (this.achievements[id]()) {
-                $(id).css('display', 'block');
+                $(id).css('color', '#dead11');
+                $(id).css('font-weight', 'bold');
                 delete this.achievements[id];
                 this.ach_seen = false;
                 this.save();
-            }
-            else {
-                $(id).css('display', 'none');
             }
         }
     };
@@ -635,7 +633,8 @@ var Game = function() {
 
                 for(var id in this.achievements) {
                     if(!new_achievements[id]) {
-                        $(id).css('display', 'block');
+                        $(id).css('color', '#dead11');
+                        $(id).css('font-weight', 'bold');
                         delete this.achievements[id];
                     }
                 }
