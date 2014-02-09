@@ -322,7 +322,7 @@ var Game = function() {
         }
 
         game.display_features['.hide-upgrades'] = function() {
-            return game.mushrooms >= game.upgrades['dexterity'].orig_price;
+            return game.clickers['phantom-hand'].count > 0 || game.mushrooms >= game.clickers['phantom-hand'].orig_price;
         }
 
         game.display_features['#mps-stats'] = function() {
@@ -339,7 +339,7 @@ var Game = function() {
         }
 
         game.display_features['.phantom-hand-upgrade'] = function() {
-            return game.upgrades['phantom-hand'].level > 0 || game.mushrooms >= game.upgrades['phantom-hand'].orig_price;
+            return game.clickers['phantom-hand'].count > 0 || game.mushrooms >= game.clickers['phantom-hand'].orig_price;
         }
 
         game.display_features['.living-basket'] = function() {
@@ -347,7 +347,7 @@ var Game = function() {
         }
 
         game.display_features['.living-basket-upgrade'] = function() {
-            return game.upgrades['living-basket'].level > 0 || game.mushrooms >= game.upgrades['living-basket'].orig_price;
+            return game.clickers['living-basket'].count > 0 || game.mushrooms >= game.clickers['living-basket'].orig_price;
         }
 
         game.display_features['.truffle-boar'] = function() {
@@ -355,7 +355,7 @@ var Game = function() {
         }
 
         game.display_features['.truffle-boar-upgrade'] = function() {
-            return game.upgrades['truffle-boar'].level > 0 || game.mushrooms >= game.upgrades['truffle-boar'].orig_price;
+            return game.clickers['truffle-boar'].count > 0 || game.mushrooms >= game.clickers['truffle-boar'].orig_price;
         }
 
         game.display_features['.hirdman'] = function() {
@@ -363,7 +363,7 @@ var Game = function() {
         }
 
         game.display_features['.hirdman-upgrade'] = function() {
-            return game.upgrades['hirdman'].level > 0 || game.mushrooms >= game.upgrades['hirdman'].orig_price;
+            return game.clickers['hirdman'].count > 0 || game.mushrooms >= game.clickers['hirdman'].orig_price;
         }
 
         game.display_features['.berserker'] = function() {
@@ -371,7 +371,7 @@ var Game = function() {
         }
 
         game.display_features['.berserker-upgrade'] = function() {
-            return game.upgrades['berserker'].level > 0 || game.mushrooms >= game.upgrades['berserker'].orig_price;
+            return game.clickers['berserker'].count > 0 || game.mushrooms >= game.clickers['berserker'].orig_price;
         }
 
         game.display_features['#delete-save'] = function() {
