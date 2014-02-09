@@ -336,6 +336,10 @@ var Game = function() {
             return false;
         }
 
+        game.display_features['#mushrooms-per-pick'] = function() {
+            return game.mushrooms_per_pick > 1;
+        }
+
         game.display_features['#mps-factor'] = function() {
             return game.mps_factor > 0;
         }
@@ -424,6 +428,11 @@ var Game = function() {
         mps_factor_text += $.number(this.mps_factor * 100);
         mps_factor_text += '%)';
         $('#mps-factor').text(mps_factor_text);
+
+        var pick_text = '(+';
+        pick_text += $.number(this.mushrooms_per_pick);
+        pick_text += ')';
+        $('#mushrooms-per-pick').text(pick_text);
     }
 
     this.updateClickerStatistics = function() {
