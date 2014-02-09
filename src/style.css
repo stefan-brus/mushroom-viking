@@ -91,6 +91,22 @@ ul {
     user-select: none;
 }
 
+.achievement:hover .tooltip {
+    display: block;
+}
+
+.tooltip {
+    display: none;
+    z-index: 100;
+    position: absolute;
+    background: #ffffff;
+    border-style: solid;
+    border-width: 1px;
+    padding: 4px 4px;
+    color: #000000;
+    font-weight: normal;
+}
+
 #picker {
     margin-left: auto;
     margin-right: auto;
