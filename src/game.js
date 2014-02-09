@@ -327,6 +327,10 @@ var Game = function() {
             return game.clickers['phantom-hand'].count > 0 || game.mushrooms >= game.clickers['phantom-hand'].orig_price;
         }
 
+        game.display_features['.hide-character-stats'] = function() {
+            return game.upgrades['dexterity'].level + game.upgrades['strength'].level > 0;
+        }
+
         game.display_features['#mps-stats'] = function() {
             for(var id in game.clickers) {
                 if(game.clickers[id].count > 0) {
@@ -419,6 +423,7 @@ var Game = function() {
         this.calculateMps();
         this.updateMps();
         this.updateClickerStatistics();
+        this.updateCharacterStatistics();
     }
 
     this.updateMps = function() {
@@ -454,6 +459,11 @@ var Game = function() {
             $(count_id).text($.number(this.clickers[id].count));
             $(mps_id).text($.number(this.clickers[id].total_mps() * (1 + (this.mps_factor)), 2));
         }
+    }
+
+    this.updateCharacterStatistics = function() {
+        $('#dexterity-level').text($.number(this.upgrades['dexterity'].level));
+        $('#strength-level').text($.number(this.upgrades['strength'].level));
     }
 
     this.updateAchievements = function() {
