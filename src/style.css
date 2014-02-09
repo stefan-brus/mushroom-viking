@@ -78,6 +78,10 @@ ul {
     user-select: none;
 }
 
+.upgrade-level {
+    font-weight: bold;
+}
+
 #picker {
     margin-left: auto;
     margin-right: auto;

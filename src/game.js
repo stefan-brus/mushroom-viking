@@ -419,6 +419,10 @@ var Game = function() {
 
     this.updateClickerStatistics = function() {
         for(var id in this.clickers) {
+            var level_id = '#';
+            level_id += id;
+            level_id += '-level';
+
             var count_id = '#';
             count_id += id;
             count_id += '-count';
@@ -427,6 +431,8 @@ var Game = function() {
             mps_id += id;
             mps_id += '-mps';
 
+            var level = this.upgrades[id].level;
+            $(level_id).text(level > 0 ? level + 1 : '');
             $(count_id).text($.number(this.clickers[id].count));
             $(mps_id).text($.number(this.clickers[id].total_mps() * (1 + (this.mps_factor)), 2));
         }
