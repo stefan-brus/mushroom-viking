@@ -19,6 +19,8 @@ var Game = function() {
 
     this.mushrooms_picked = 0;
 
+    this.hand_picked = 0;
+
     this.mushrooms_per_pick = 1;
 
     this.clickers = new Array();
@@ -382,6 +384,7 @@ var Game = function() {
     this.updateMushrooms = function() {
         $('#mushrooms').text($.number(this.mushrooms));
         $('#mushrooms-picked').text($.number(this.mushrooms_picked));
+        $('#hand-picked').text($.number(this.hand_picked));
     }
 
     this.updateClickerPrices = function() {
@@ -485,6 +488,7 @@ var Game = function() {
         else {
             game.mushrooms += game.mushrooms_per_pick;
             game.mushrooms_picked += game.mushrooms_per_pick;
+            game.hand_picked += game.mushrooms_per_pick;
         }
 
         game.updateMushrooms();
