@@ -277,6 +277,42 @@ var Game = function() {
         game.achievements['#ach-mushroom-picker'] = function() {
             return game.mushrooms >= 1;
         }
+
+        game.achievements['#ach-mushroom-novice'] = function() {
+            return game.mushrooms_picked >= 100;
+        }
+
+        game.achievements['#ach-mushroom-acolyte'] = function() {
+            return game.mushrooms_picked >= 10000;
+        }
+
+        game.achievements['#ach-mushroom-viking'] = function() {
+            return game.mushrooms_picked >= 1000000;
+        }
+
+        game.achievements['#ach-mushroom-master'] = function() {
+            return game.mushrooms_picked >= 100000000;
+        }
+
+        game.achievements['#ach-hand-picking'] = function() {
+            return game.mps >= 1;
+        }
+
+        game.achievements['#ach-automation'] = function() {
+            return game.mps >= 10;
+        }
+
+        game.achievements['#ach-effectivization'] = function() {
+            return game.mps >= 100;
+        }
+
+        game.achievements['#ach-systemized'] = function() {
+            return game.mps >= 1000;
+        }
+
+        game.achievements['#ach-shpongled'] = function() {
+            return game.mps >= 10000;
+        }
     }
 
     // This instance needs to be passed to this method, because it is passed to a function object
